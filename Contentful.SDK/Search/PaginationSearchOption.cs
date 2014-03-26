@@ -2,6 +2,12 @@ namespace Contentful.SDK.Search
 {
     public class PaginationSearchOption : SearchFilter
     {
+        public PaginationSearchOption(int? skip = null, int? limit = null)
+        {
+            Skip = skip;
+            Limit = limit;
+        }
+
         public int? Skip
         {
             get { return Get("skip") == null ? (int?)null : int.Parse(Get("skip")); }

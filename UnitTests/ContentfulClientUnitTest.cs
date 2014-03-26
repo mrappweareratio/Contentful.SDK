@@ -27,7 +27,7 @@ namespace UnitTests
         [TestMethod]
         public async Task Create()
         {
-            var client = await CreateClientAsync();   
+            var client = await CreateClientAsync();
             Assert.IsNotNull(client);
             Assert.IsNotNull(client.Space);
         }
@@ -108,6 +108,30 @@ namespace UnitTests
                 if (i == 0) continue;
                 Assert.IsTrue(list[i].Sys.CreatedAt <= list[i - 1].Sys.CreatedAt, "CreatedAt Descending");
             }
+
+
+        }
+
+        [TestMethod]
+        public async Task GetEntriesLimitAsync()
+        {
+            var client = await CreateClientAsync();
+            var entries = await client.GetEntriesAsync<Cat>(new List<SearchFilter>
+            {
+                new ContentTypeSearchFilter()
+                {
+                    ContentType = "cat"
+                },
+                new OrderSearchOption()
+                {
+                    Order = "sys.createdAt", Descending = true
+                },
+                new PaginationSearchOption(null, 3)
+            });
+            Assert.IsNotNull(entries);
+            Assert.AreEqual(3, entries.Limit);
+            var list = entries.Items.ToArray();
+            Assert.AreEqual(entries.Limit, list.Length);
         }
 
 
