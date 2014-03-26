@@ -64,8 +64,6 @@ namespace UnitTests
 
         public class Cat : Entry
         {
-            public Sys Sys { get; set; }
-
             public string Name
             {
                 get { return GetField<string>("name"); }
