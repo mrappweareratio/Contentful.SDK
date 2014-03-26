@@ -62,6 +62,55 @@ namespace UnitTests
 
         }
 
+        [TestMethod]
+        public async Task GetEntriesSortedAsync()
+        {
+            var client = await CreateClientAsync();
+            var entries = await client.GetEntriesAsync<Cat>(new List<SearchFilter>
+            {
+                new ContentTypeSearchFilter()
+                {
+                    ContentType = "cat"
+                },
+                new OrderSearchOption()
+                {
+                    Order = "sys.createdAt"
+                }
+            });
+            Assert.IsNotNull(entries);
+            var list = entries.Items.ToArray();
+            for (int i = 0; i < list.Length; i++)
+            {
+                if (i == 0) continue;
+                Assert.IsTrue(list[i].Sys.CreatedAt >= list[i - 1].Sys.CreatedAt, "CreatedAt Ascending");
+            }
+        }
+
+        [TestMethod]
+        public async Task GetEntriesSortedDescAsync()
+        {
+            var client = await CreateClientAsync();
+            var entries = await client.GetEntriesAsync<Cat>(new List<SearchFilter>
+            {
+                new ContentTypeSearchFilter()
+                {
+                    ContentType = "cat"
+                },
+                new OrderSearchOption()
+                {
+                    Order = "sys.createdAt", Descending = true
+                }
+            });
+            Assert.IsNotNull(entries);
+            var list = entries.Items.ToArray();
+            for (int i = 0; i < list.Length; i++)
+            {
+                if (i == 0) continue;
+                Assert.IsTrue(list[i].Sys.CreatedAt <= list[i - 1].Sys.CreatedAt, "CreatedAt Descending");
+            }
+        }
+
+
         public class Cat : Entry
         {
             public string Name

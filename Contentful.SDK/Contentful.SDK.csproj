@@ -49,6 +49,9 @@
     <Compile Include="Search\ContentArray.cs" />
     <Compile Include="IContentfulClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Search\ContentTypeSearchFilter.cs" />
+    <Compile Include="Search\OrderSearchOption.cs" />
+    <Compile Include="Search\PaginationSearchOption.cs" />
     <Compile Include="Search\SearchFilter.cs" />
     <Compile Include="Sys.cs" />
   </ItemGroup>
