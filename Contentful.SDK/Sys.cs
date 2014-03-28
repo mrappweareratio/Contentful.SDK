@@ -9,8 +9,16 @@ namespace Contentful.SDK
     {
         [JsonConverter(typeof(StringEnumConverter))]
         public SysType Type { get; set; }
+             [JsonConverter(typeof(StringEnumConverter))]
+        public LinkType LinkType { get; set; }
         public string Id { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+    }
+
+    public enum LinkType
+    {
+        Entry,
+        Asset
     }
 }

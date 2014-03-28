@@ -51,7 +51,7 @@ namespace Contentful.SDK
             throw new Exception();
         }
 
-        public async Task<ContentArray<TEntry>> GetEntriesAsync<TEntry>(IEnumerable<SearchFilter> filters) where TEntry : IContent
+        public async Task<EntryArray<TEntry>> GetEntriesAsync<TEntry>(IEnumerable<SearchFilter> filters) where TEntry : Entry
         {
             if (_httpClient == null)
                 throw new InvalidOperationException();
@@ -60,7 +60,8 @@ namespace Contentful.SDK
             if (httpResponseMessage.IsSuccessStatusCode)
             {
                 var json = await httpResponseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
-                var entries = JsonConvert.DeserializeObject<ContentArray<TEntry>>(json);
+                var entries = JsonConvert.DeserializeObject<EntryArray<TEntry>>(json);
+                entries.ResolveLinks();
                 return entries;
             }
             throw new Exception();

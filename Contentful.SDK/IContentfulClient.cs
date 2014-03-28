@@ -11,6 +11,6 @@ namespace Contentful.SDK
         string Space { get; }
         Task<IContentfulClient> CreateAsync(string space, string accessToken);
         Task<TEntry> GetEntryAsync<TEntry>(string id) where TEntry : IContent;
-        Task<ContentArray<TEntry>> GetEntriesAsync<TEntry>(IEnumerable<SearchFilter> filters) where TEntry : IContent;
+        Task<EntryArray<TEntry>> GetEntriesAsync<TEntry>(IEnumerable<SearchFilter> filters) where TEntry : Entry;
     }
 }
