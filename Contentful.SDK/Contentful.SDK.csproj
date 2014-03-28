@@ -45,12 +45,15 @@
     <Compile Include="ContentModel\Entry.cs" />
     <Compile Include="ContentModel\IContent.cs" />
     <Compile Include="ContentModel\IEntry.cs" />
+    <Compile Include="ContentModel\ImageAssetDetail.cs" />
+    <Compile Include="ContentModel\ImageSize.cs" />
     <Compile Include="ContentModel\SysType.cs" />
     <Compile Include="Search\ContentArray.cs" />
     <Compile Include="IContentfulClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Search\ContentTypeSearchFilter.cs" />
     <Compile Include="Search\EqualitySearchFilter.cs" />
+    <Compile Include="Search\IncludeLinksSearchOption.cs" />
     <Compile Include="Search\OrderSearchOption.cs" />
     <Compile Include="Search\PaginationSearchOption.cs" />
     <Compile Include="Search\SearchFilter.cs" />

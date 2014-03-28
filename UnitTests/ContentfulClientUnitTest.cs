@@ -147,6 +147,23 @@ namespace UnitTests
             Assert.AreEqual(list[0].Sys.Id, "nyancat");
         }
 
+        [TestMethod]
+        public async Task GetEntriesEqualityIncludesAssetAsync()
+        {
+            var client = await CreateClientAsync();
+            var entries = await client.GetEntriesAsync<Cat>(new List<SearchFilter>
+            {
+                new EqualitySearchFilter("sys.id", "nyancat"),
+                new IncludeLinksSearchOption(2)
+            });
+            Assert.IsNotNull(entries);
+            var list = entries.Items.ToArray();
+            Assert.AreEqual(list[0].Sys.Id, "nyancat");
+            Assert.IsNotNull(entries.Includes);
+            Assert.IsNotNull(entries.Includes.Asset);
+            Assert.IsTrue(entries.Includes.Asset.ToList().TrueForAll(x => !String.IsNullOrEmpty(x.Fields.File.Url)));
+        }
+
 
         public class Cat : Entry
         {
