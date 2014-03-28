@@ -134,6 +134,19 @@ namespace UnitTests
             Assert.AreEqual(entries.Limit, list.Length);
         }
 
+        [TestMethod]
+        public async Task GetEntriesEqualityAsync()
+        {
+            var client = await CreateClientAsync();
+            var entries = await client.GetEntriesAsync<Cat>(new List<SearchFilter>
+            {
+                new EqualitySearchFilter("sys.id", "nyancat")
+            });
+            Assert.IsNotNull(entries);
+            var list = entries.Items.ToArray();
+            Assert.AreEqual(list[0].Sys.Id, "nyancat");
+        }
+
 
         public class Cat : Entry
         {
