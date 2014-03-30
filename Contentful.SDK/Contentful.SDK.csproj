@@ -52,10 +52,12 @@
     <Compile Include="ContentModel\ImageAssetDetail.cs" />
     <Compile Include="ContentModel\ImageSize.cs" />
     <Compile Include="ContentModel\SysType.cs" />
+    <Compile Include="Search\AssetArray.cs" />
     <Compile Include="Search\ContentArray.cs" />
     <Compile Include="IContentfulClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Search\ContentTypeSearchFilter.cs" />
+    <Compile Include="Search\EntryArray.cs" />
     <Compile Include="Search\EqualitySearchFilter.cs" />
     <Compile Include="Search\IncludeLinksSearchOption.cs" />
     <Compile Include="Search\OrderSearchOption.cs" />

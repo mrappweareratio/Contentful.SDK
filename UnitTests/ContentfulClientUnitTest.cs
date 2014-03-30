@@ -152,9 +152,39 @@ namespace UnitTests
             Assert.IsTrue(entries.Includes.Asset.ToList().TrueForAll(x => !String.IsNullOrEmpty(x.Fields.File.Url)));
         }
 
+        [TestMethod]
+        public async Task GetEntriesResolvesLinks()
+        {
+            var client = await CreateClientAsync();
+            var entries = await client.GetEntriesAsync<Cat>(new List<SearchFilter>
+            {
+                new EqualitySearchFilter("sys.id", "nyancat"),
+                new IncludeLinksSearchOption(1)
+            });
+            Assert.IsNotNull(entries);
+            var list = entries.Items.ToArray();
+            Assert.AreEqual(list[0].Sys.Id, "nyancat");
+            Assert.IsNotNull(entries.Includes);
+            Assert.IsNotNull(entries.Includes.Asset);
+            Assert.IsTrue(entries.Includes.Asset.ToList().TrueForAll(x => !String.IsNullOrEmpty(x.Fields.File.Url)));
+            var cat = entries.Items.First();
+            Assert.IsNotNull(cat, "nyancat");
+            Assert.IsNotNull(cat.Fields, "Fields");
+            Assert.IsNotNull(cat.Fields.Image.Fields.File.Url, "Image Url");
+        }
+
 
         public class Cat : Entry
         {
+            public new CatFields Fields { get; set; }
+
+            public class CatFields
+            {
+                public string Name { get; set; }
+                [LinkedContent(typeof(Asset), LinkType.Asset)]
+                public Asset Image { get; set; }
+            }
+
             public string Name
             {
                 get { return GetField<string>("name"); }
