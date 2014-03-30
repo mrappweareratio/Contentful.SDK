@@ -6,8 +6,20 @@ namespace Contentful.SDK.ContentModel
     public class Asset : IContent
     {
         public Sys Sys { get; set; }
+        
         public AssetFields Fields { get; set; }
-        public string Url { get { return Fields.File.Url; } }
+
+        /// <summary>
+        /// Extracts the Fields.File.Url into https
+        /// </summary>
+        public string Url
+        {
+            get
+            {
+                if (Fields == null || Fields.File == null || Fields.File.Url == null) return String.Empty;
+                return Fields.File.Url.Contains("https:") ? Fields.File.Url : String.Format("https:{0}", Fields.File.Url);
+            }
+        }
 
         /// <summary>
         /// Images are hosted on images.contentful.com. For files on this host you can attach the URI query parameters w and/or h to specify the desired dimensions. The image will never be stretched, skewed or enlarged. Instead it will be fit into the bounding box given by the w and h parameters.
