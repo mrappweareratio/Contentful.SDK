@@ -10,17 +10,10 @@ namespace Contentful.SDK
 {
     public class ContentfulHelpers
     {
-        public static IEnumerable<TEntry> ConvertToEntryType<TEntry>(TEntry empty,
-            IEnumerable<Entry> entriesOfType) where TEntry : class
+        public static IEnumerable<TEntry> ConvertToEntryType<TEntry>(TEntry instance,
+            IEnumerable<Entry> entriesOfType) where TEntry : Entry
         {
-            var list = new List<TEntry>();
-            foreach (var obj in entriesOfType)
-            {
-                var entry = obj as TEntry;
-                if (entry == null) continue;
-                list.Add(entry);
-            }
-            return list;
+            return entriesOfType.OfType<TEntry>();
         }
 
         public static IEnumerable<TEntry> BuildFromIncludesEntries<TEntry>(IEnumerable<TEntry> entires,

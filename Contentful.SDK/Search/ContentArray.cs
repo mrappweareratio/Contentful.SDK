@@ -44,7 +44,7 @@ namespace Contentful.SDK.Search
             ResolveLinks(this, Items);
         }
 
-        private void ResolveLinks(EntryArray<TContent> contentArray, IEnumerable<Entry> items)
+        private void ResolveLinks(IContentArray<TContent> contentArray, IEnumerable<Entry> items)
         {
             var fields = typeof (TContent).GetRuntimeProperties()
                 .FirstOrDefault(x => typeof(TContent) == typeof(Entry) 
@@ -88,6 +88,7 @@ namespace Contentful.SDK.Search
 
                 foreach (var item in items)
                 {
+                    if (attribute == null) continue;
                     switch (attribute.LinkType)
                     {
                         case LinkType.Entry:
@@ -96,7 +97,7 @@ namespace Contentful.SDK.Search
                             var array = propValue as IEnumerable<Entry>;
                             var linkedContentArray = ContentfulHelpers.ConvertToEntryType(target, array);
                             var value = ContentfulHelpers.BuildFromIncludesEntries(linkedContentArray,
-                            contentArray.Includes.Entry);
+                                contentArray.Includes.Entry);
                             prop.SetValue(fields.GetValue(item), value);
                             break;
 

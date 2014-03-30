@@ -50,10 +50,7 @@ namespace UnitTests
             var client = await CreateClientAsync();
             var entries = await client.GetEntriesAsync<Cat>(new List<SearchFilter>
             {
-                new ContentTypeSearchFilter()
-                {
-                    ContentType = "cat"
-                }
+                new ContentTypeSearchFilter("cat")
             });
             Assert.IsNotNull(entries);
             Assert.AreEqual(SysType.Array, entries.Sys.Type);
@@ -68,10 +65,7 @@ namespace UnitTests
             var client = await CreateClientAsync();
             var entries = await client.GetEntriesAsync<Cat>(new List<SearchFilter>
             {
-                new ContentTypeSearchFilter()
-                {
-                    ContentType = "cat"
-                },
+                new ContentTypeSearchFilter("cat"),
                 new OrderSearchOption()
                 {
                     Order = "sys.createdAt"
@@ -92,10 +86,7 @@ namespace UnitTests
             var client = await CreateClientAsync();
             var entries = await client.GetEntriesAsync<Cat>(new List<SearchFilter>
             {
-                new ContentTypeSearchFilter()
-                {
-                    ContentType = "cat"
-                },
+                new ContentTypeSearchFilter("cat"),
                 new OrderSearchOption()
                 {
                     Order = "sys.createdAt", Descending = true
@@ -118,10 +109,7 @@ namespace UnitTests
             var client = await CreateClientAsync();
             var entries = await client.GetEntriesAsync<Cat>(new List<SearchFilter>
             {
-                new ContentTypeSearchFilter()
-                {
-                    ContentType = "cat"
-                },
+                new ContentTypeSearchFilter("cat"),
                 new OrderSearchOption()
                 {
                     Order = "sys.createdAt", Descending = true
