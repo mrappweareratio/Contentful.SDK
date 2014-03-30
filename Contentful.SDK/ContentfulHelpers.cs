@@ -97,12 +97,22 @@ namespace Contentful.SDK
                 foreach (var entry in entries)
                 {
                     if (attribute == null) continue;
+                    if (fields.GetValue(entry) == null)
+                    {
+                        //entry has no populated fields
+                        continue;
+                    }
                     var propValue = prop.GetValue(fields.GetValue(entry));
                     switch (attribute.LinkType)
                     {
                         case LinkType.Entry:
                             //find list of linked entries
                             var arrayAsEntries = propValue as IEnumerable<Entry>;
+                            if (arrayAsEntries == null)
+                            {
+                                //property doesn't have links
+                                continue;                                
+                            }
                             dynamic target = Activator.CreateInstance(attribute.TargetType);
                             var arrayAsTargetType = ContentfulHelpers.ConvertToEntryType(target, arrayAsEntries);
                             //resolve recursive links within linked entries
