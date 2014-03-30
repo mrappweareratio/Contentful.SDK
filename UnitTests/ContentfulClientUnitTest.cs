@@ -55,7 +55,7 @@ namespace UnitTests
             Assert.IsNotNull(entries);
             Assert.AreEqual(SysType.Array, entries.Sys.Type);
             Assert.IsTrue(entries.Items.Any());
-            Assert.IsTrue(entries.Items.ToList().TrueForAll(x => !String.IsNullOrEmpty(x.Name)), "Names not empty");
+            Assert.IsTrue(entries.Items.ToList().TrueForAll(x => !String.IsNullOrEmpty(x.Fields.Name)), "Names not empty");
 
         }
 
@@ -183,11 +183,6 @@ namespace UnitTests
                 public string Name { get; set; }
                 [LinkedContent(typeof(Asset), LinkType.Asset)]
                 public Asset Image { get; set; }
-            }
-
-            public string Name
-            {
-                get { return GetField<string>("name"); }
             }
         }
     }

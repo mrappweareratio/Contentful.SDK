@@ -16,7 +16,7 @@ namespace Contentful.SDK.ContentModel
             return Fields.TryGetValue(propertyName, out token) ? token.ToObject<T>() : default(T);
         }
 
-        public virtual TEntry From<TEntry>(Entry entry) where TEntry : Entry
+        public virtual TEntry From<TEntry>(Entry entry) where TEntry : Entry, new()
         {
             if(!(this is TEntry))
                 throw new InvalidOperationException(String.Format("Cannot convert Entryy of type {0} to type {1}", this.GetType(), typeof(TEntry)));
