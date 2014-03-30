@@ -14,7 +14,7 @@ namespace Contentful.SDK.Search
             return String.Join("&", filters.Select(x => x.GetQueryString()));
         }
 
-        protected virtual string GetQueryString()
+        public virtual string GetQueryString()
         {
             return String.Join("&", _pairs.Where(p => p.Value != null).Select(p => String.Format("{0}={1}", p.Key, p.Value)));
         }
