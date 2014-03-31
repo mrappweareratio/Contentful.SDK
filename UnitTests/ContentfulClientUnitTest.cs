@@ -173,7 +173,7 @@ namespace UnitTests
             Assert.IsNotNull(cat.Fields.Image.Fields.File.Url, "Image Url");
             var url = cat.Fields.Image.GetImageUrl(new Asset.ImageOptions() {Width = 100, Height = 100});
             Assert.IsTrue(url.Contains(cat.Fields.Image.Fields.File.Url), "contains file url");
-            Assert.AreEqual(String.Format("{0}?w=100&h=100", cat.Fields.Image.Fields.File.Url), url);
+            Assert.AreEqual(String.Format("https:{0}?w=100&h=100", cat.Fields.Image.Fields.File.Url), url);
         }
 
 

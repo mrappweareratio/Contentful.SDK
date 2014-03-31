@@ -35,10 +35,10 @@ namespace Contentful.SDK
                 .ToList();
         }
 
-        public static IEnumerable<Asset> ResolveLinkedAssets(IEnumerable<Asset> entires,
+        public static IEnumerable<Asset> ResolveLinkedAssets(IEnumerable<Asset> assets,
          IContentArray contentArray)
         {
-            return entires
+            return assets
                 .Join(contentArray.Includes.Asset, x => x.Sys.Id, entry => entry.Sys.Id, (original, included) => original.From(included))
                 .ToList();
         }
@@ -115,10 +115,10 @@ namespace Contentful.SDK
                             }
                             dynamic target = Activator.CreateInstance(attribute.TargetType);
                             var arrayAsTargetType = ContentfulHelpers.ConvertToEntryType(target, arrayAsEntries);
+                            var linkedEntries = ContentfulHelpers.ResolveLinkedEntries(arrayAsTargetType, contentArray);
                             //resolve recursive links within linked entries
-                            ResolveLinks(contentArray, arrayAsTargetType);
-                            var value = ContentfulHelpers.ResolveLinkedEntries(arrayAsTargetType, contentArray);
-                            prop.SetValue(fields.GetValue(entry), value);
+                            ResolveLinks(contentArray, linkedEntries);
+                            prop.SetValue(fields.GetValue(entry), linkedEntries);
                             break;
 
                         case LinkType.Asset:
